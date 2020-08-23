@@ -1,0 +1,52 @@
+From d00ed9599a3fb701d1be35459eda0dc08a6295b7 Mon Sep 17 00:00:00 2001
+From: Yuan-Wei Ying theyingstor@gmail.com
+Date: Fri, 24 Jul 2020 02:13:00 -0700
+Subject: [PATCH] Create Patch File
+
+NOTE: second change (added comments so actual changes in instructions not accounted for)
+---
+ src/DataManipulator.ts | 7 +++++++
+ src/Graph.tsx          | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/src/DataManipulator.ts b/src/DataManipulator.ts
+index 22faa36..89053f4 100644
+--- a/src/DataManipulator.ts
++++ b/src/DataManipulator.ts
+@@ -1,6 +1,13 @@
+ import { ServerRespond } from './DataStreamer';
+ 
+ export interface Row {
++  // define variable types
++  // price_abc = price of stock abc 
++  // price_def = price of stock def
++  // ratio = price abc/def
++  // timestamp = time of the price data point
++  // upper_bound/lower_bound = stock price threshold for moving too far from average
++  // trigger alert = alert when price exceeds either boundary
+   price_abc: number,
+   price_def: number,
+   ratio: number,
+diff --git a/src/Graph.tsx b/src/Graph.tsx
+index 01d7e16..3aff8a6 100644
+--- a/src/Graph.tsx
++++ b/src/Graph.tsx
+@@ -22,6 +22,7 @@ class Graph extends Component<IProps, {}> {
+     // Get element from the DOM.
+     const elem = document.getElementsByTagName('perspective-viewer')[0] as unknown as PerspectiveViewerElement;
+ 
++    // schema for variables in use
+     const schema = {
+       price_abc: 'float',
+       price_def: 'float',
+@@ -53,6 +54,7 @@ class Graph extends Component<IProps, {}> {
+     }
+   }
+ 
++  //Once component is updated, update the datamanipulator by generating a new row
+   componentDidUpdate() {
+     if (this.table) {
+       this.table.update([
+-- 
+2.23.0.windows.1
+
